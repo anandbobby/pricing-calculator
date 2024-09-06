@@ -18,6 +18,13 @@ const theme = extendTheme({
   },
 });
 
+const backgroundStyle = {
+  backgroundColor: '#e5e5f7',
+  opacity: 0.8,
+  backgroundImage: 'radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px)',
+  backgroundSize: '10px 10px',
+};
+
 const PricingCalculator = () => {
   const [userCount, setUserCount] = useState('');
   const [totalCost, setTotalCost] = useState(null);
@@ -44,61 +51,63 @@ const PricingCalculator = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Container maxW="container.md" py={10}>
-        <VStack spacing={8} align="stretch">
-          <Text fontSize="2xl" fontWeight="bold">Pricing Calculator</Text>
-          
-          <VStack spacing={4}>
-            <Text fontSize="lg">Enter number of users:</Text>
-            <HStack>
-              <Input
-                type="number"
-                value={userCount}
-                onChange={(e) => setUserCount(e.target.value)}
-                placeholder="Enter users"
-                maxWidth="200px"
-              />
-              <Button onClick={calculatePrice} colorScheme="brand">
-                Calculate Fee
-              </Button>
-            </HStack>
-          </VStack>
+      <Box style={backgroundStyle} minHeight="100vh">
+        <Container maxW="container.md" py={10}>
+          <VStack spacing={8} align="stretch">
+            <Text fontSize="2xl" fontWeight="bold">Pricing Calculator</Text>
+            
+            <VStack spacing={4}>
+              <Text fontSize="lg">Enter number of users:</Text>
+              <HStack>
+                <Input
+                  type="number"
+                  value={userCount}
+                  onChange={(e) => setUserCount(e.target.value)}
+                  placeholder="Enter users"
+                  maxWidth="200px"
+                />
+                <Button onClick={calculatePrice} colorScheme="brand">
+                  Calculate Fee
+                </Button>
+              </HStack>
+            </VStack>
 
-          {totalCost !== null && (
-            <Box bg="gray.100" p={4} borderRadius="md">
-              <Text fontSize="xl" fontWeight="bold">
-                Total Fee: ₹ {totalCost.toLocaleString()}
-              </Text>
-              <Text>({breakdown})</Text>
-            </Box>
-          )}
+            {totalCost !== null && (
+              <Box bg="gray.100" p={4} borderRadius="md">
+                <Text fontSize="xl" fontWeight="bold">
+                  Total Fee: ₹ {totalCost.toLocaleString()}
+                </Text>
+                <Text>({breakdown})</Text>
+              </Box>
+            )}
 
-          <Button onClick={() => setShowPricing(!showPricing)} colorScheme="brand">
-            {showPricing ? 'Hide Volume Pricing' : 'Show Volume Pricing'}
-          </Button>
+            <Button onClick={() => setShowPricing(!showPricing)} colorScheme="brand">
+              {showPricing ? 'Hide Volume Pricing' : 'Show Volume Pricing'}
+            </Button>
 
-          {showPricing && (
-            <Box overflowX="auto">
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Users</Th>
-                    <Th>Cost (₹)</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {pricingData.map((row) => (
-                    <Tr key={row.range}>
-                      <Td>{row.range}</Td>
-                      <Td>{row.cost.toLocaleString()}/user</Td>
+            {showPricing && (
+              <Box overflowX="auto">
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Users</Th>
+                      <Th>Cost (₹)</Th>
                     </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </Box>
-          )}
-        </VStack>
-      </Container>
+                  </Thead>
+                  <Tbody>
+                    {pricingData.map((row) => (
+                      <Tr key={row.range}>
+                        <Td>{row.range}</Td>
+                        <Td>{row.cost.toLocaleString()}/user</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </Box>
+            )}
+          </VStack>
+        </Container>
+      </Box>
     </ChakraProvider>
   );
 };
