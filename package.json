@@ -2,7 +2,7 @@
   "name": "pricing-calculator",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://yourusername.github.io/pricing-calculator",
+  "homepage": "https://anandbobby.github.io/pricing-calculator",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
